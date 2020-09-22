@@ -35,7 +35,7 @@ variable "networks" {
     {
       name     = "network-1"
       ip_range = "10.0.0.0/16"
-      routes   = null
+      routes   = []
       subnets  = [
         {
           ip_range     = "10.0.0.0/24"
@@ -43,7 +43,7 @@ variable "networks" {
           type         = "server"
         }
       ]
-      labels   = null
+      labels   = {}
     }
   ]
 
