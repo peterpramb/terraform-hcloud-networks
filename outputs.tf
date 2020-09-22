@@ -24,7 +24,15 @@ output "network_names" {
 output "networks" {
   description = "A list of all network objects."
   value = [
-    for network in hcloud_network.networks : network
+    for network in hcloud_network.networks : merge(network, {
+        "routes" = [
+          for route in hcloud_network_route.routes : route if(tostring(route.network_id) == network.id)
+        ]
+      }, {
+        "subnets" = [
+          for subnet in hcloud_network_subnet.subnets : subnet if(tostring(subnet.network_id) == network.id)
+        ]
+    })
   ]
 }
 
