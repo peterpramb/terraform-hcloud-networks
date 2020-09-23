@@ -18,7 +18,9 @@ locals {
   routes = {
     for route in flatten([
       for network in local.networks : [
-        for route in network.routes : merge(route, { "network" = network.name })
+        for route in network.routes : merge(route, {
+          "network" = network.name
+        })
       ] if(lookup(network, "routes", null) != null)
     ]) : "${route.network}:${route.destination}" => route
   }
@@ -28,7 +30,9 @@ locals {
   subnets = {
     for subnet in flatten([
       for network in local.networks : [
-        for subnet in network.subnets : merge(subnet, { "network" = network.name })
+        for subnet in network.subnets : merge(subnet, {
+          "network" = network.name
+        })
       ]
     ]) : "${subnet.network}:${subnet.ip_range}" => subnet
   }
