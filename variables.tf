@@ -1,6 +1,6 @@
-# ==========================================================
-# Manages networks, routes, and subnets in the Hetzner Cloud
-# ==========================================================
+# ========================================================
+# Manage networks, routes and subnets in the Hetzner Cloud
+# ========================================================
 
 
 # ---------------
@@ -10,7 +10,7 @@
 variable "networks" {
   description = "The list of network objects to be managed. Each network object supports the following parameters: 'name' (string, required), 'ip_range' (string, required), 'routes' (list of route objects, optional), 'subnets' (list of subnet objects, required), 'labels' (map of KV pairs, optional). Each route object supports the following parameters: 'destination' (string, required), 'gateway' (string, required). Each subnet object supports the following parameters: 'ip_range' (string, required), 'network_zone' (string, required), 'type' (string, required)."
 
-  type = list(
+  type        = list(
     object({
       name     = string
       ip_range = string
@@ -31,7 +31,7 @@ variable "networks" {
     })
   )
 
-  default = [
+  default     = [
     {
       name     = "network-1"
       ip_range = "10.0.0.0/16"
@@ -48,21 +48,21 @@ variable "networks" {
   ]
 
   validation {
-    condition = can([
+    condition     = can([
       for network in var.networks : regex("\\w+", network.name)
     ])
     error_message = "All networks must have a valid 'name' attribute specified."
   }
 
   validation {
-    condition = can([
+    condition     = can([
       for network in var.networks : regex("[[:xdigit:]]+", network.ip_range)
     ])
     error_message = "All networks must have a valid 'ip_range' attribute specified."
   }
 
   validation {
-    condition = can([
+    condition     = can([
       for network in var.networks : [
         for route in network.routes : regex("[[:xdigit:]]+", route.destination)
       ] if lookup(network, "routes", null) != null
@@ -71,7 +71,7 @@ variable "networks" {
   }
 
   validation {
-    condition = can([
+    condition     = can([
       for network in var.networks : [
         for route in network.routes : regex("[[:xdigit:]]+", route.gateway)
       ] if lookup(network, "routes", null) != null
@@ -80,14 +80,14 @@ variable "networks" {
   }
 
   validation {
-    condition = can([
+    condition     = can([
       for network in var.networks : element(network.subnets, 0)
     ])
     error_message = "All networks must have at least one subnet specified."
   }
 
   validation {
-    condition = can([
+    condition     = can([
       for network in var.networks : [
         for subnet in network.subnets : regex("[[:xdigit:]]+", subnet.ip_range)
       ]
@@ -96,7 +96,7 @@ variable "networks" {
   }
 
   validation {
-    condition = can([
+    condition     = can([
       for network in var.networks : [
         for subnet in network.subnets : regex("\\w+", subnet.network_zone)
       ]
@@ -105,7 +105,7 @@ variable "networks" {
   }
 
   validation {
-    condition = can([
+    condition     = can([
       for network in var.networks : [
         for subnet in network.subnets : regex("\\w+", subnet.type)
       ]

@@ -1,6 +1,6 @@
-# ==========================================================
-# Manages networks, routes, and subnets in the Hetzner Cloud
-# ==========================================================
+# ========================================================
+# Manage networks, routes and subnets in the Hetzner Cloud
+# ========================================================
 
 
 # ------------
@@ -8,14 +8,14 @@
 # ------------
 
 locals {
-  # Build a map of all provided network objects, indexed by network name
+  # Build a map of all provided network objects, indexed by network name:
   networks = {
     for network in var.networks : network.name => network
   }
 
   # Build a map of all provided network route objects, indexed by network
-  # name and route destination
-  routes = {
+  # name and route destination:
+  routes   = {
     for route in flatten([
       for network in local.networks : [
         for route in network.routes : merge(route, {
@@ -26,8 +26,8 @@ locals {
   }
 
   # Build a map of all provided network subnet objects, indexed by network
-  # name and subnet range
-  subnets = {
+  # name and subnet range:
+  subnets  = {
     for subnet in flatten([
       for network in local.networks : [
         for subnet in network.subnets : merge(subnet, {
