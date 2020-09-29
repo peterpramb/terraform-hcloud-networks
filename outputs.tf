@@ -26,11 +26,13 @@ output "networks" {
   value       = [
     for network in hcloud_network.networks : merge(network, {
         "routes"  = [
-          for route in hcloud_network_route.routes : route if(tostring(route.network_id) == network.id)
+          for route in hcloud_network_route.routes : route
+            if(tostring(route.network_id) == network.id)
         ]
       }, {
         "subnets" = [
-          for subnet in hcloud_network_subnet.subnets : subnet if(tostring(subnet.network_id) == network.id)
+          for subnet in hcloud_network_subnet.subnets : subnet
+            if(tostring(subnet.network_id) == network.id)
         ]
     })
   ]
@@ -54,7 +56,7 @@ output "network_routes" {
   description = "A list of all network route objects."
   value       = [
     for name, route in hcloud_network_route.routes : merge(route, {
-      "network_name" = local.routes[name].network
+      "network_name" = lookup(lookup(local.routes, name, {}), "network", null)
     })
   ]
 }
@@ -77,7 +79,7 @@ output "network_subnets" {
   description = "A list of all network subnet objects."
   value       = [
     for name, subnet in hcloud_network_subnet.subnets : merge(subnet, {
-      "network_name" = local.subnets[name].network
+      "network_name" = lookup(lookup(local.subnets, name, {}), "network", null)
     })
   ]
 }
