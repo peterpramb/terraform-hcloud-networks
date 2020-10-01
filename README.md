@@ -9,9 +9,9 @@
 
 It implements the following [provider](#providers) resources:
 
-- [hcloud_network](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network)
-- [hcloud_network_route](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network_route)
-- [hcloud_network_subnet](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network_subnet)
+- [hcloud\_network](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network)
+- [hcloud\_network\_route](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network_route)
+- [hcloud\_network\_subnet](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network_subnet)
 
 
 ## Usage
@@ -93,7 +93,7 @@ See [examples](https://github.com/peterpramb/terraform-hcloud-networks/blob/mast
 
 | Name | Description | Type | Required |
 |------|-------------|:----:|:--------:|
-| [ip_range](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network_subnet#ip_range) | Range to allocate IPs from. | string | yes |
+| [ip\_range](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network_subnet#ip_range) | Range to allocate IPs from. | string | yes |
 | [network\_zone](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network_subnet#network_zone) | Name of the network zone. | string | yes |
 | [type](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network_subnet#type) | Type of the subnet. | string | yes |
 
