@@ -123,28 +123,20 @@ networks = [
 
 | Name | Description |
 |------|-------------|
-| network\_ids | Map of all network IDs and associated names. |
-| network\_names | Map of all network names and associated IDs. |
 | networks | List of all network objects. |
-| network\_route\_ids | Map of all network route IDs and associated names. |
-| network\_route\_names | Map of all network route names and associated IDs. |
+| network\_ids | Map of all network objects indexed by ID. |
+| network\_names | Map of all network objects indexed by name. |
 | network\_routes | List of all network route objects. |
-| network\_subnet\_ids | Map of all network subnet IDs and associated names. |
-| network\_subnet\_names | Map of all network subnet names and associated IDs. |
+| network\_route\_ids | Map of all network route objects indexed by ID. |
+| network\_route\_names | Map of all network route objects indexed by name. |
 | network\_subnets | List of all network subnet objects. |
+| network\_subnet\_ids | Map of all network subnet objects indexed by ID. |
+| network\_subnet\_names | Map of all network subnet objects indexed by name. |
 
 
 ### Defaults
 
 ```terraform
-network_ids = {
-  "157411" = "network-1"
-}
-
-network_names = {
-  "network-1" = "157411"
-}
-
 networks = [
   {
     "id" = "157411"
@@ -165,31 +157,90 @@ networks = [
   },
 ]
 
-network_route_ids = {}
+network_ids = {
+  "157411" = {
+    "id" = "157411"
+    "ip_range" = "10.0.0.0/16"
+    "labels" = {}
+    "name" = "network-1"
+    "routes" = []
+    "subnets" = [
+      {
+        "gateway" = "10.0.0.1"
+        "id" = "157411-10.0.0.0/24"
+        "ip_range" = "10.0.0.0/24"
+        "network_id" = 157411
+        "network_zone" = "eu-central"
+        "type" = "server"
+      },
+    ]
+  }
+}
 
-network_route_names = {}
+network_names = {
+  "network-1" = {
+    "id" = "157411"
+    "ip_range" = "10.0.0.0/16"
+    "labels" = {}
+    "name" = "network-1"
+    "routes" = []
+    "subnets" = [
+      {
+        "gateway" = "10.0.0.1"
+        "id" = "157411-10.0.0.0/24"
+        "ip_range" = "10.0.0.0/24"
+        "network_id" = 157411
+        "network_zone" = "eu-central"
+        "type" = "server"
+      },
+    ]
+  }
+}
 
 network_routes = []
 
-network_subnet_ids = {
-  "157411-10.0.0.0/24" = "network-1:10.0.0.0/24"
-}
+network_route_ids = {}
 
-network_subnet_names = {
-  "network-1:10.0.0.0/24" = "157411-10.0.0.0/24"
-}
+network_route_names = {}
 
 network_subnets = [
   {
     "gateway" = "10.0.0.1"
     "id" = "157411-10.0.0.0/24"
     "ip_range" = "10.0.0.0/24"
+    "name" = "network-1:10.0.0.0/24"
     "network_id" = 157411
     "network_name" = "network-1"
     "network_zone" = "eu-central"
     "type" = "server"
   },
 ]
+
+network_subnet_ids = {
+  "157411-10.0.0.0/24" = {
+    "gateway" = "10.0.0.1"
+    "id" = "157411-10.0.0.0/24"
+    "ip_range" = "10.0.0.0/24"
+    "name" = "network-1:10.0.0.0/24"
+    "network_id" = 157411
+    "network_name" = "network-1"
+    "network_zone" = "eu-central"
+    "type" = "server"
+  }
+}
+
+network_subnet_names = {
+  "network-1:10.0.0.0/24" = {
+    "gateway" = "10.0.0.1"
+    "id" = "157411-10.0.0.0/24"
+    "ip_range" = "10.0.0.0/24"
+    "name" = "network-1:10.0.0.0/24"
+    "network_id" = 157411
+    "network_name" = "network-1"
+    "network_zone" = "eu-central"
+    "type" = "server"
+  }
+}
 ```
 
 

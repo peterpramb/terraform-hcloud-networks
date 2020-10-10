@@ -3,83 +3,97 @@
 # ========================================================
 
 
-# -------------
-# Output Values
-# -------------
+# ------------
+# Local Values
+# ------------
 
-output "network_ids" {
-  description = "A map of all network ids and associated names."
-  value       = {
-    for name, network in hcloud_network.networks : network.id => name
-  }
-}
-
-output "network_names" {
-  description = "A map of all network names and associated ids."
-  value       = {
-    for name, network in hcloud_network.networks : name => network.id
-  }
-}
-
-output "networks" {
-  description = "A list of all network objects."
-  value       = [
+locals {
+  output_networks = [
     for network in hcloud_network.networks : merge(network, {
-        "routes"  = [
-          for route in hcloud_network_route.routes : route
-            if(tostring(route.network_id) == network.id)
-        ]
-      }, {
-        "subnets" = [
-          for subnet in hcloud_network_subnet.subnets : subnet
-            if(tostring(subnet.network_id) == network.id)
-        ]
+      "routes"  = [
+        for route in hcloud_network_route.routes : route
+          if(tostring(route.network_id) == network.id)
+      ]}, {
+      "subnets" = [
+        for subnet in hcloud_network_subnet.subnets : subnet
+          if(tostring(subnet.network_id) == network.id)
+      ]
+    })
+  ]
+
+  output_routes   = [
+    for name, route in hcloud_network_route.routes : merge(route, {
+      "name"         = name
+      "network_name" = try(local.routes[name].network, null)
+    })
+  ]
+
+  output_subnets  = [
+    for name, subnet in hcloud_network_subnet.subnets : merge(subnet, {
+      "name"         = name
+      "network_name" = try(local.subnets[name].network, null)
     })
   ]
 }
 
-output "network_route_ids" {
-  description = "A map of all network route ids and associated names."
+
+# -------------
+# Output Values
+# -------------
+
+output "networks" {
+  description = "A list of all network objects."
+  value       = local.output_networks
+}
+
+output "network_ids" {
+  description = "A map of all network objects indexed by ID."
   value       = {
-    for name, route in hcloud_network_route.routes : route.id => name
+    for network in local.output_networks : network.id => network
   }
 }
 
-output "network_route_names" {
-  description = "A map of all network route names and associated ids."
+output "network_names" {
+  description = "A map of all network objects indexed by name."
   value       = {
-    for name, route in hcloud_network_route.routes : name => route.id
+    for network in local.output_networks : network.name => network
   }
 }
 
 output "network_routes" {
   description = "A list of all network route objects."
-  value       = [
-    for name, route in hcloud_network_route.routes : merge(route, {
-      "network_name" = lookup(lookup(local.routes, name, {}), "network", null)
-    })
-  ]
+  value       = local.output_routes
 }
 
-output "network_subnet_ids" {
-  description = "A map of all network subnet ids and associated names."
+output "network_route_ids" {
+  description = "A map of all network route objects indexed by ID."
   value       = {
-    for name, subnet in hcloud_network_subnet.subnets : subnet.id => name
+    for route in local.output_routes : route.id => route
   }
 }
 
-output "network_subnet_names" {
-  description = "A map of all network subnet names and associated ids."
+output "network_route_names" {
+  description = "A map of all network route objects indexed by name."
   value       = {
-    for name, subnet in hcloud_network_subnet.subnets : name => subnet.id
+    for route in local.output_routes : route.name => route
   }
 }
 
 output "network_subnets" {
   description = "A list of all network subnet objects."
-  value       = [
-    for name, subnet in hcloud_network_subnet.subnets : merge(subnet, {
-      "network_name" = lookup(lookup(local.subnets, name, {}), "network", null)
-    })
-  ]
+  value       = local.output_subnets
+}
+
+output "network_subnet_ids" {
+  description = "A map of all network subnet objects indexed by ID."
+  value       = {
+    for subnet in local.output_subnets : subnet.id => subnet
+  }
+}
+
+output "network_subnet_names" {
+  description = "A map of all network subnet objects indexed by name."
+  value       = {
+    for subnet in local.output_subnets : subnet.name => subnet
+  }
 }
