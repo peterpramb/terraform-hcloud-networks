@@ -2,7 +2,7 @@
 
 This folder shows an example of [Terraform](https://www.terraform.io) code that uses the [terraform-hcloud-networks](https://github.com/peterpramb/terraform-hcloud-networks) module to manage networks with automatic subnet calculation in the [Hetzner Cloud](https://www.hetzner.com/cloud).
 
-**IMPORTANT**: This example points to the master branch of the module for simplicity. In your code, you should always pin to a specific official release.
+:information\_source: **IMPORTANT**: This example points to the master branch of the module for simplicity. In your code, you should always pin to a specific official release.
 
 
 ## Quick Start
