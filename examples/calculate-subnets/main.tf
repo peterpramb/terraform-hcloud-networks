@@ -19,7 +19,7 @@ locals {
                            var.subnet_start + var.subnet_count) : {
           "ip_range"     = cidrsubnet(network[1], network[2], index)
           "network_zone" = "eu-central"
-          "type"         = "server"
+          "type"         = "cloud"
         }
       ]
       "labels"   = var.labels

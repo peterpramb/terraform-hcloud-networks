@@ -15,7 +15,7 @@ locals {
       "subnets" = [{
         "ip_range"     = network.subnet
         "network_zone" = "eu-central"
-        "type"         = "server"
+        "type"         = "cloud"
       }]
       "labels"  = var.labels
     })

@@ -34,7 +34,7 @@ module "network" {
         {
           ip_range     = "10.0.0.0/24"
           network_zone = "eu-central"
-          type         = "server"
+          type         = "cloud"
         }
       ]
       labels   = {
@@ -110,7 +110,7 @@ networks = [
       {
         ip_range     = "10.0.0.0/24"
         network_zone = "eu-central"
-        type         = "server"
+        type         = "cloud"
       }
     ]
     labels   = {}
@@ -151,7 +151,7 @@ networks = [
         "ip_range" = "10.0.0.0/24"
         "network_id" = 157411
         "network_zone" = "eu-central"
-        "type" = "server"
+        "type" = "cloud"
       },
     ]
   },
@@ -171,7 +171,7 @@ network_ids = {
         "ip_range" = "10.0.0.0/24"
         "network_id" = 157411
         "network_zone" = "eu-central"
-        "type" = "server"
+        "type" = "cloud"
       },
     ]
   }
@@ -191,7 +191,7 @@ network_names = {
         "ip_range" = "10.0.0.0/24"
         "network_id" = 157411
         "network_zone" = "eu-central"
-        "type" = "server"
+        "type" = "cloud"
       },
     ]
   }
@@ -212,7 +212,7 @@ network_subnets = [
     "network_id" = 157411
     "network_name" = "network-1"
     "network_zone" = "eu-central"
-    "type" = "server"
+    "type" = "cloud"
   },
 ]
 
@@ -225,7 +225,7 @@ network_subnet_ids = {
     "network_id" = 157411
     "network_name" = "network-1"
     "network_zone" = "eu-central"
-    "type" = "server"
+    "type" = "cloud"
   }
 }
 
@@ -238,7 +238,7 @@ network_subnet_names = {
     "network_id" = 157411
     "network_name" = "network-1"
     "network_zone" = "eu-central"
-    "type" = "server"
+    "type" = "cloud"
   }
 }
 ```

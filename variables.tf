@@ -40,7 +40,7 @@ variable "networks" {
         {
           ip_range     = "10.0.0.0/24"
           network_zone = "eu-central"
-          type         = "server"
+          type         = "cloud"
         }
       ]
       labels   = {}
