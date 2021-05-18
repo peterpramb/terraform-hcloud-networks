@@ -8,7 +8,7 @@
 # ------------
 
 locals {
-  # Enrich user configuration for network module
+  # Enrich user configuration for network module:
   networks = [
     for network in var.networks : {
       "name"     = network[0]
