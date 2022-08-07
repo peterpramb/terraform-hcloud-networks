@@ -22,22 +22,23 @@ module "network" {
 
   networks = [
     {
-      name     = "network-1"
-      ip_range = "10.0.0.0/16"
-      routes   = [
+      name       = "network-1"
+      ip_range   = "10.0.0.0/16"
+      protection = true
+      routes     = [
         {
           destination = "192.168.100.0/24"
           gateway     = "10.0.0.100"
         }
       ]
-      subnets  = [
+      subnets    = [
         {
           ip_range     = "10.0.0.0/24"
           network_zone = "eu-central"
           type         = "cloud"
         }
       ]
-      labels   = {
+      labels     = {
         "managed"    = "true"
         "managed_by" = "Terraform"
       }
@@ -60,7 +61,7 @@ See [examples](https://github.com/peterpramb/terraform-hcloud-networks/blob/mast
 
 | Name | Version |
 |------|---------|
-| [hcloud](https://registry.terraform.io/providers/hetznercloud/hcloud) | &ge; 1.20 |
+| [hcloud](https://registry.terraform.io/providers/hetznercloud/hcloud) | &ge; 1.31 |
 
 
 ## Inputs
@@ -76,6 +77,7 @@ See [examples](https://github.com/peterpramb/terraform-hcloud-networks/blob/mast
 |------|-------------|:----:|:--------:|
 | [name](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network#name) | Unique name of the network. | string | yes |
 | [ip\_range](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network#ip_range) | RFC1918 range of the network. | string | yes |
+| [protection](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network#delete_protection) | Protect network from deletion. | bool | no |
 | routes | List of route objects. | list(map([*route*](#route))) | no |
 | subnets | List of subnet objects. | list(map([*subnet*](#subnet))) | yes |
 | [labels](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network#labels) | Map of user-defined labels. | map(string) | no |
@@ -103,17 +105,18 @@ See [examples](https://github.com/peterpramb/terraform-hcloud-networks/blob/mast
 ```terraform
 networks = [
   {
-    name     = "network-1"
-    ip_range = "10.0.0.0/16"
-    routes   = []
-    subnets  = [
+    name       = "network-1"
+    ip_range   = "10.0.0.0/16"
+    protection = false
+    routes     = []
+    subnets    = [
       {
         ip_range     = "10.0.0.0/24"
         network_zone = "eu-central"
         type         = "cloud"
       }
     ]
-    labels   = {}
+    labels     = {}
   }
 ]
 ```
@@ -139,6 +142,7 @@ networks = [
 ```terraform
 networks = [
   {
+    "delete_protection" = false
     "id" = "157411"
     "ip_range" = "10.0.0.0/16"
     "labels" = {}
@@ -159,6 +163,7 @@ networks = [
 
 network_ids = {
   "157411" = {
+    "delete_protection" = false
     "id" = "157411"
     "ip_range" = "10.0.0.0/16"
     "labels" = {}
@@ -179,6 +184,7 @@ network_ids = {
 
 network_names = {
   "network-1" = {
+    "delete_protection" = false
     "id" = "157411"
     "ip_range" = "10.0.0.0/16"
     "labels" = {}

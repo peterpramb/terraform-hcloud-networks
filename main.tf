@@ -44,12 +44,13 @@ locals {
 # --------
 
 resource "hcloud_network" "networks" {
-  for_each = local.networks
+  for_each          = local.networks
 
-  name     = each.value.name
-  ip_range = each.value.ip_range
+  name              = each.value.name
+  ip_range          = each.value.ip_range
+  delete_protection = each.value.protection
 
-  labels   = each.value.labels
+  labels            = each.value.labels
 }
 
 

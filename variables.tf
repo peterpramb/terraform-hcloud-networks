@@ -8,42 +8,44 @@
 # ---------------
 
 variable "networks" {
-  description = "The list of network objects to be managed. Each network object supports the following parameters: 'name' (string, required), 'ip_range' (string, required), 'routes' (list of route objects, optional), 'subnets' (list of subnet objects, required), 'labels' (map of KV pairs, optional). Each route object supports the following parameters: 'destination' (string, required), 'gateway' (string, required). Each subnet object supports the following parameters: 'ip_range' (string, required), 'network_zone' (string, required), 'type' (string, required)."
+  description = "The list of network objects to be managed. Each network object supports the following parameters: 'name' (string, required), 'ip_range' (string, required), 'protection' (bool, optional), 'routes' (list of route objects, optional), 'subnets' (list of subnet objects, required), 'labels' (map of KV pairs, optional). Each route object supports the following parameters: 'destination' (string, required), 'gateway' (string, required). Each subnet object supports the following parameters: 'ip_range' (string, required), 'network_zone' (string, required), 'type' (string, required)."
 
   type        = list(
     object({
-      name     = string
-      ip_range = string
-      routes   = list(
+      name       = string
+      ip_range   = string
+      protection = bool
+      routes     = list(
         object({
           destination = string
           gateway     = string
         })
       )
-      subnets  = list(
+      subnets    = list(
         object({
           ip_range     = string
           network_zone = string
           type         = string
         })
       )
-      labels   = map(string)
+      labels     = map(string)
     })
   )
 
   default     = [
     {
-      name     = "network-1"
-      ip_range = "10.0.0.0/16"
-      routes   = []
-      subnets  = [
+      name       = "network-1"
+      ip_range   = "10.0.0.0/16"
+      protection = false
+      routes     = []
+      subnets    = [
         {
           ip_range     = "10.0.0.0/24"
           network_zone = "eu-central"
           type         = "cloud"
         }
       ]
-      labels   = {}
+      labels     = {}
     }
   ]
 

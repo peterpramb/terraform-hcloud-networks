@@ -11,13 +11,14 @@ locals {
   # Enrich user configuration for network module:
   networks = [
     for network in var.networks : merge(network, {
-      "routes"  = []
-      "subnets" = [{
+      "protection" = false
+      "routes"     = []
+      "subnets"    = [{
         "ip_range"     = network.subnet
         "network_zone" = "eu-central"
         "type"         = "cloud"
       }]
-      "labels"  = var.labels
+      "labels"     = var.labels
     })
   ]
 }

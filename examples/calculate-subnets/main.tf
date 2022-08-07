@@ -11,10 +11,11 @@ locals {
   # Enrich user configuration for network module:
   networks = [
     for network in var.networks : {
-      "name"     = network[0]
-      "ip_range" = network[1]
-      "routes"   = []
-      "subnets"  = [
+      "name"       = network[0]
+      "ip_range"   = network[1]
+      "protection" = false
+      "routes"     = []
+      "subnets"    = [
         for index in range(var.subnet_start,
                            var.subnet_start + var.subnet_count) : {
           "ip_range"     = cidrsubnet(network[1], network[2], index)
@@ -22,7 +23,7 @@ locals {
           "type"         = "cloud"
         }
       ]
-      "labels"   = var.labels
+      "labels"     = var.labels
     }
   ]
 }
